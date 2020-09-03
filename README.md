@@ -27,5 +27,5 @@
 - **知乎**：[https://www.zhihu.com/people/yuannancheng](https://www.zhihu.com/people/yuannancheng)
 - **CSDN**：[https://blog.csdn.net/weixin_44549795](https://blog.csdn.net/weixin_44549795)
 - **GitHub**：[https://github.com/yuannancheng](https://github.com/yuannancheng)
-- **Twitter**：[https://twitter.com/Bloom201701](https://twitter.com/Bloom201701)
+- **Twitter**：[https://twitter.com/yuannancheng](https://twitter.com/yuannancheng)
 - **Email**：[y17870181601@163.com](mailto:y17870181601@163.com)
