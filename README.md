@@ -18,8 +18,8 @@
 
 ### 个人项目
 
-- **我的笔记**：<http://mynote.applinzi.com>
-- **Tiku**：<https://yuannancheng.github.io/tiku_v2>
+- **我的笔记**：<https://yuannancheng.com/mynote>
+- **Tiku**：<https://yuannancheng.com/tiku_v2>
 
 ### 社交网络
 
