@@ -27,7 +27,7 @@
             origin.innerHTML = '—— ' + content.data.origin;
             origin.style.display = 'inline-block';
             origin.style.float = 'right';
-            origin.style.marginTop = '-1em';
+            origin.style.marginTop = '0';
             div.appendChild(origin);
         }
     }
