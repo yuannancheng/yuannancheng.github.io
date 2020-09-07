@@ -18,7 +18,6 @@
             let p = document.createElement('p');
             p.innerText = content.data.content;
             p.style.display = 'inline-block';
-            p.style.paddingLeft = '2em';
             div.appendChild(p);
             let br = document.createElement('br');
             br.style.userSelect = 'none';
