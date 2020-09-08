@@ -3,7 +3,7 @@
 <script>
 
   let apiUrl = 'https://api.xygeng.cn/one';
-  let timer = 0;
+  let timer = 60000;
   let changeTimer = null;
   let scheduleEl = null;
 
@@ -18,16 +18,18 @@
       scheduleBackground.style.backgroundColor = '#eeeeee';
       scheduleBackground.style.height = '1px';
       scheduleBackground.style.margin = '-1em auto 1em';
+      scheduleBackground.style.overflow = 'hidden';
       el.appendChild(scheduleBackground);
       
       let schedule = document.createElement('div');
       schedule.className = 'schedule';
       schedule.style.position = 'absolute';
-      schedule.style.width = '0';
+      schedule.style.width = '100%';
       schedule.style.height = '1px';
-      schedule.style.left = '0';
+      schedule.style.right = '100%';
       schedule.style.top = '0';
       schedule.style.backgroundColor = '#159957';
+      schedule.style.transition = '0.02s';
       scheduleBackground.appendChild(schedule);
       
       scheduleEl = schedule;
@@ -63,15 +65,15 @@
       content.innerText = value.data.content;
       origin.innerHTML = '—— ' + value.data.origin;
       clearInterval(changeTimer);
-      timer = 0;
+      timer = 60000;
       changeTimer = setInterval(changeSchedule, 20);
     }
   }
   
   function changeSchedule () {
-    timer = timer + 20 >= 60000 ? 60000 : timer + 20;
-    let newWidth = Math.floor(timer / 60000 * 10000) / 100;
-    scheduleEl.style.width = newWidth + '%';
+    timer = timer - 20 <= 0 ? 0 : timer - 20;
+    let newPosition = Math.floor(timer / 60000 * 10000) / 100;
+    scheduleEl.style.right = newPosition + '%';
   }
 
   (function getContent () {
