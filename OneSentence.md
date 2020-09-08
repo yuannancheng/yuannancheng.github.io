@@ -1,4 +1,64 @@
+<h1>ONE一句</h1>
+
 <script>
+
+  /*
+  new Vue({
+    el: '#OneVm',
+    data: {
+      content: '',
+      author: '',
+      APIUrl: 'https://api.xygeng.cn/one'
+    },
+    computed: {
+      wrapStyle () {
+        return {
+          display: 'inline-block',
+          position: 'relative'
+        }
+      },
+      contentStyle () {
+        return {
+          display: 'inline-block',
+          whiteSpace: 'pre-wrap'
+        }
+      },
+      authorStyle () {
+        return {
+          display: 'inline-block',
+          float: 'right',
+          marginTop: '0'
+        }
+      }
+    },
+    methods: {
+      getContent () {
+        let _this = this;
+        let xmlhttp;
+        if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else { // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+          if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+              let status = JSON.parse(xmlhttp.responseText);
+              _this.content = status.data.content;
+              _this.author = '—— ' + status.data.origin;
+              console.log(_this);
+          }
+        }
+        xmlhttp.open("GET", this.APIUrl, true);
+        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlhttp.send();
+      }
+    },
+    mounted () {
+      this.getContent ();
+    }
+  })
+  */
+
 	let api = 'https://api.xygeng.cn/one';
     let xmlhttp;
     if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -33,6 +93,5 @@
     xmlhttp.open("GET", api, true);
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.send();
-</script>
 
-# ONE一句
+</script>
