@@ -24,9 +24,9 @@
       let schedule = document.createElement('div');
       schedule.className = 'schedule';
       schedule.style.position = 'absolute';
-      schedule.style.width = '100%';
+      schedule.style.width = '0';
       schedule.style.height = '1px';
-      schedule.style.right = '100%';
+      schedule.style.left = '0';
       schedule.style.top = '0';
       schedule.style.backgroundColor = '#159957';
       scheduleBackground.appendChild(schedule);
@@ -64,15 +64,15 @@
       content.innerText = value.data.content;
       origin.innerHTML = '—— ' + value.data.origin;
       clearInterval(changeTimer);
-      timer = 60000;
+      timer = 0;
       changeTimer = setInterval(changeSchedule, 20);
     }
   }
   
   function changeSchedule () {
-    timer = timer - 20 <= 0 ? 0 : timer - 20;
-    let newPosition = Math.floor(timer / 60000 * 10000) / 100;
-    scheduleEl.style.right = newPosition + '%';
+    timer = timer + 20 >= 60000 ? 60000 : timer + 20;
+    let newWidth = Math.floor(timer / 60000 * 10000) / 100 + '%';
+    scheduleEl.style.width = newWidth;
   }
 
   (function getContent () {
