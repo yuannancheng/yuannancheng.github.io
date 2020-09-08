@@ -31,7 +31,7 @@
       scheduleBackground.appendChild(schedule);
       
       scheduleEl = schedule;
-      changeTimer = setInterval(changeSchedule, 30);
+      changeTimer = setInterval(changeSchedule, 20);
       
       wrap = document.createElement('div');
       wrap.style.display = 'inline-block';
@@ -64,12 +64,12 @@
       origin.innerHTML = '—— ' + value.data.origin;
       clearInterval(changeTimer);
       timer = 0;
-      changeTimer = setInterval(changeSchedule, 30);
+      changeTimer = setInterval(changeSchedule, 20);
     }
   }
   
   function changeSchedule () {
-    timer = timer + 30 >= 60000 ? 60000 : timer + 30;
+    timer = timer + 20 >= 60000 ? 60000 : timer + 20;
     let newWidth = Math.floor(timer / 60000 * 10000) / 100;
     scheduleEl.style.width = newWidth + '%';
   }
