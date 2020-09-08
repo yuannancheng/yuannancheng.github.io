@@ -3,7 +3,7 @@
 <script>
 
   let apiUrl = 'https://api.xygeng.cn/one';
-  let timer = 60000;
+  let timer = 0;
   let changeTimer = null;
   let scheduleEl = null;
 
