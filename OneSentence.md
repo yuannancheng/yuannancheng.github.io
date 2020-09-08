@@ -29,7 +29,6 @@
       schedule.style.right = '100%';
       schedule.style.top = '0';
       schedule.style.backgroundColor = '#159957';
-      schedule.style.transition = '0.02s';
       scheduleBackground.appendChild(schedule);
       
       scheduleEl = schedule;
