@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         答题辅助脚本
 // @namespace    https://yuannancheng.com/
-// @version      0.1
+// @version      0.2
 // @description  上一题：左键、下一题：右键、判断对错：Enter、前往第1题：1、前往上次题号：L
 // @author       Meet you
 // @include      *://sljsbmpt.xq5u.com/*
@@ -91,10 +91,12 @@
         .table_box div {
             font-size: 20px;
             line-height: 30px;
+            color: #304455;
         }
         td .eqList:first-child {
             white-space: pre-wrap;
             margin-bottom: 10px;
+            color: #304455;
         }
     `);
     style.appendChild(text);
