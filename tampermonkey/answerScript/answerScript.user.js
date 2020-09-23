@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         答题辅助脚本
+// @name         竞赛刷题辅助脚本
 // @version      0.3
 // @description  上一题：左键、下一题：右键、判断对错：Enter、前往第1题：1、前往上次题号：L
 // @author       Meet you
@@ -11,10 +11,16 @@
 // @downloadURL  https://yuannancheng.github.io/tampermonkey/answerScript/answerScript.user.js
 // ==/UserScript==
 
+var option = {
+    type: 1, // 学生
+    school: 28, // 江西水利职业学院
+    testId: 28 // 水利工程造价
+};
+
 (function init() {
     let href = location.href;
-    let answerHrefReg = /^(http|https):\/\/sljsbmpt\.xq5u\.com\/Manager\/Index\.asp/;
-    let homeHrefReg = /^(http|https):\/\/sljsbmpt\.xq5u\.com(\/)*(Index.asp)*$/;
+    let answerHrefReg = /^(http|https):\/\/sljsbmpt\.xq5u\.com\/Manager\/Index\.asp(\?.+)*$/;
+    let homeHrefReg = /^(http|https):\/\/sljsbmpt\.xq5u\.com(\/)*(Index.asp)*(\?.+)*$/;
     if (answerHrefReg.test(href)) {
         answerInit();
     } else if (homeHrefReg.test(href)) {
@@ -23,15 +29,12 @@
 })();
 
 function homeInit() {
-    const option = {
-        type: 1, // 学生
-        school: 28 // 江西水利职业学院
-    }
     function homeonload () {
         const ul = document.getElementsByClassName('_select-select-ul');
         const listClose = document.getElementsByClassName('_htools-select');
         if (ul !== null) {
-            clearInterval(this.loading);
+            clearInterval(loading);
+            delete loading;
             ul[0].getElementsByTagName('li')[option.type].click(); // 选择学生身份
             listClose[0].click(); // 关闭列表
 
@@ -50,7 +53,7 @@ function homeInit() {
             console.log('加载中……')
         }
     }
-    this.loading = setInterval(homeonload, 300);
+    var loading = setInterval(homeonload, 300);
 }
 
 
@@ -59,17 +62,15 @@ function answerInit () {
     window.addEventListener('keydown', keydown);
     answerStyleReset();
 
-    const option = {
-        id: 28 // 水利工程造价
-    };
     function answeronload () {
         const ul = document.getElementById('sCategory');
         if (ul !== null) {
-            clearInterval(this._loading);
+            clearInterval(loading);
+            delete loading;
             const opntionList = ul.getElementsByTagName('option');
             for (let i = 0; i < opntionList.length; i++) {
                 let thisOption = opntionList[i];
-                if (thisOption.value * 1 === option.id) {
+                if (thisOption.value * 1 === option.testId) {
                     thisOption.selected = true; // 选中水利工程造价
                     document.getElementById('Enter').click(); // 查询
                     break;
@@ -79,7 +80,7 @@ function answerInit () {
             console.log('加载中……')
         }
     }
-    this._loading = setInterval(answeronload, 300);
+    var loading = setInterval(answeronload, 300);
 }
 
 function keydown(e) {
