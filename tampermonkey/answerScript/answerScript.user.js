@@ -94,6 +94,14 @@ function keydown(e) {
         window._timer = null;
     }, 300);
 
+    const activeEl = document.activeElement;
+    if (
+        activeEl.type === 'textarea' ||
+        activeEl.type === 'text' ||
+        activeEl.type === 'number' ||
+        activeEl.type === 'input'
+    ) return // 如果正在输入状态，屏蔽按键事件
+
     const el = document.getElementById('try');
     if (el) {
         const wrap = el.getElementsByClassName('table')[0];
