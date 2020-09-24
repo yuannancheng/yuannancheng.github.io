@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         竞赛刷题辅助脚本
-// @version      0.3
+// @version      0.4
 // @description  上一题：左键、下一题：右键、判断对错：Enter、前往第1题：1、前往上次题号：L
 // @author       Meet you
 // @include      *://sljsbmpt.xq5u.com/*
