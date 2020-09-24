@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         竞赛刷题辅助脚本
-// @version      0.3
+// @version      0.4
 // @description  上一题：左键、下一题：右键、判断对错：Enter、前往第1题：1、前往上次题号：L
 // @author       Meet you
 // @include      *://sljsbmpt.xq5u.com/*
@@ -133,17 +133,7 @@ function keydown(e) {
                 break;
             case 13: // 回车键 判断对错
                 buttonList.enter.click();
-                setTimeout(() => {
-                    let text = document.getElementById('qTrue').getElementsByTagName('span')[0].innerText;
-                    if (text === '回答正确！') {
-                        setTimeout(() => {
-                            if (buttonList.next) {
-                                localStorage.setItem('lastIndex', thisId);
-                                buttonList.next.click();
-                            }
-                        }, 300);
-                    }
-                }, 300);
+                var isTrueTry = setInterval(isTrue, 50);
                 break;
             case 39: // 右方向键 下一题
                 if (buttonList.next) {
@@ -159,6 +149,18 @@ function keydown(e) {
             case 76: // L键 前往上一次题号
                 if (lastId !== null) this.ajax_get('dialogBox','Question/Question.asp?v=Pan&Type=101&Id=' + lastId, 'text');
                 break;
+        }
+        function isTrue () {
+            let el = document.getElementById('qTrue').getElementsByTagName('span')[0];
+            if (el && el.innerText === '回答正确！') {
+                clearInterval(isTrueTry);
+                setTimeout(() => {
+                    if (buttonList.next) {
+                        localStorage.setItem('lastIndex', thisId);
+                        buttonList.next.click();
+                    }
+                }, 500);
+            }
         }
     }
 }
