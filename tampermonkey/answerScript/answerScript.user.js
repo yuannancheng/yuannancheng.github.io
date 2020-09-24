@@ -151,7 +151,8 @@ function keydown(e) {
                     buttonList.next.click();
                 }
                 break;
-            case (49 || 97): // 1键 前往第一题
+            case 49:
+            case 97: // 1键 前往第一题
                 localStorage.setItem('lastIndex', thisId);
                 this.ajax_get('dialogBox','Question/Question.asp?v=Pan&Type=101&Id=' + firstId, 'text');
                 break;
