@@ -133,6 +133,17 @@ function keydown(e) {
                 break;
             case 13: // 回车键 判断对错
                 buttonList.enter.click();
+                setTimeout(() => {
+                    let text = document.getElementById('qTrue').getElementsByTagName('span')[0].innerText;
+                    if (text === '回答正确！') {
+                        setTimeout(() => {
+                            if (buttonList.next) {
+                                localStorage.setItem('lastIndex', thisId);
+                                buttonList.next.click();
+                            }
+                        }, 300);
+                    }
+                }, 300);
                 break;
             case 39: // 右方向键 下一题
                 if (buttonList.next) {
