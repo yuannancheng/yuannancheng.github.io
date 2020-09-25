@@ -1,31 +1,99 @@
-## 欢迎来到我的主页
+<h1>ONE一句</h1>
 
-### 美词佳句
+<script>
 
-- 但愿人长久，千里共婵娟。
-- 东风夜放花千树，更吹落、星如雨。
-- 还似旧时游上苑，车如流水马如龙。
-- 暖风熏得游人醉，直把杭州作汴州。
-- 紫陌春风细雨过，轻尘不动柳丝斜。
-- 少年不识愁滋味，为赋新词强说愁。
-- 曾与美人桥上别，恨无消息到今朝。
-- 长相思兮长相忆，短相思兮无穷极。
-- 日出江花红胜火，春来江水绿如蓝。
-- 山寺月中寻桂子，郡亭枕上看潮头。
-- 吴酒一杯春竹叶，吴娃双舞醉芙蓉。早晚复相逢！
-- 问君能有几多愁？恰似一江春水向东流。
-- 落霞与孤鹜齐飞，秋水共长天一色。
+  let apiUrl = 'https://api.xygeng.cn/one';
+  let timer = 0;
+  let changeTimer = null;
+  let scheduleEl = null;
 
-### 个人项目
+  function setValue (value) {
+    let el = document.getElementById('main');
+    let wrap = el.getElementsByClassName('wrap')[0];
+    if (!wrap) {
+      let scheduleBackground = document.createElement('div');
+      scheduleBackground.className = 'scheduleBackground';
+      scheduleBackground.style.position = 'relative';
+      scheduleBackground.style.width = '100%';
+      scheduleBackground.style.backgroundColor = '#eeeeee';
+      scheduleBackground.style.height = '1px';
+      scheduleBackground.style.margin = '-1em auto 1em';
+      scheduleBackground.style.overflow = 'hidden';
+      el.appendChild(scheduleBackground);
+      
+      let schedule = document.createElement('div');
+      schedule.className = 'schedule';
+      schedule.style.position = 'absolute';
+      schedule.style.width = '0';
+      schedule.style.height = '1px';
+      schedule.style.left = '0';
+      schedule.style.top = '0';
+      schedule.style.backgroundColor = '#159957';
+      scheduleBackground.appendChild(schedule);
+      
+      scheduleEl = schedule;
+      changeTimer = setInterval(changeSchedule, 20);
+      
+      wrap = document.createElement('div');
+      wrap.style.display = 'inline-block';
+      wrap.style.position = 'relative';
+      wrap.style.whiteSpace = 'pre-wrap';
+      wrap.className = 'wrap';
+      el.appendChild(wrap);
+      
+      let content = document.createElement('p');
+      content.innerText = value.data.content;
+      content.style.display = 'inline-block';
+      content.className = 'content';
+      wrap.appendChild(content);
 
-- **我的笔记**：<https://yuannancheng.com/mynote>
-- **Tiku**：<https://yuannancheng.com/tiku_v2>
+      let br = document.createElement('br');
+      br.style.userSelect = 'none';
+      wrap.appendChild(br);
 
-### 社交网络
+      let origin = document.createElement('p');
+      origin.innerHTML = '—— ' + value.data.origin;
+      origin.style.display = 'inline-block';
+      origin.style.float = 'right';
+      origin.style.marginTop = '0';
+      origin.className = 'origin';
+      wrap.appendChild(origin);
+    } else {
+      let content = wrap.getElementsByClassName('content')[0];
+      let origin = wrap.getElementsByClassName('origin')[0];
+      content.innerText = value.data.content;
+      origin.innerHTML = '—— ' + value.data.origin;
+      clearInterval(changeTimer);
+      timer = 0;
+      changeTimer = setInterval(changeSchedule, 20);
+    }
+  }
+  
+  function changeSchedule () {
+    timer = timer + 20 >= 60000 ? 60000 : timer + 20;
+    let newWidth = Math.floor(timer / 60000 * 10000) / 100 + '%';
+    scheduleEl.style.width = newWidth;
+  }
 
-- **微博**：<https://weibo.com/yuannancheng>
-- **知乎**：<https://www.zhihu.com/people/yuannancheng>
-- **CSDN**：<https://blog.csdn.net/weixin_44549795>
-- **GitHub**：<https://github.com/yuannancheng>
-- **Twitter**：<https://twitter.com/yuannancheng>
-- **Email**：<y17870181601@163.com>
+  (function getContent () {
+    let xmlhttp;
+    if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else { // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        let result = JSON.parse(xmlhttp.responseText);
+        setValue(result);
+        setTimeout(() => {
+          getContent();
+        }, 60000)
+      }
+    }
+    xmlhttp.open("GET", apiUrl, true);
+    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlhttp.send();
+  })();
+
+</script>
