@@ -1,3 +1,6 @@
+html {
+  -webkit-tap-highlight-color: transparent;
+}
 .page-header {
   color: #fff;
   text-align: center;
