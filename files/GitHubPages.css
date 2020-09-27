@@ -11,7 +11,7 @@ body {
   margin: 0
 }
 
-article,
+/* article,
 aside,
 details,
 figcaption,
@@ -25,9 +25,9 @@ nav,
 section,
 summary {
   display: block
-}
+} */
 
-audio,
+/* audio,
 canvas,
 progress,
 video {
@@ -43,9 +43,9 @@ audio:not([controls]) {
 [hidden],
 template {
   display: none
-}
+} */
 
-a {
+/* a {
   background-color: transparent
 }
 
@@ -65,14 +65,14 @@ strong {
 
 dfn {
   font-style: italic
-}
+} */
 
 h1 {
   font-size: 2em;
   margin: 0.67em 0
 }
 
-mark {
+/* mark {
   background: #ff0;
   color: #000
 }
@@ -496,7 +496,7 @@ th {
 
 .highlight {
   background-color: #f8f8f8
-}
+} */
 
 * {
   box-sizing: border-box
@@ -511,16 +511,16 @@ body {
   color: #606c71
 }
 
-a {
+/* a {
   color: #1e6bb8;
   text-decoration: none
-}
+} */
 
-a:hover {
+/* a:hover {
   text-decoration: underline
-}
+} */
 
-.btn {
+/* .btn {
   display: inline-block;
   margin-bottom: 1rem;
   color: rgba(255, 255, 255, 0.7);
@@ -568,16 +568,16 @@ a:hover {
     margin-top: 1rem;
     margin-left: 0
   }
-}
+} */
 
-.page-header {
+/* .page-header {
   color: #fff;
   text-align: center;
   background-color: #159957;
   background-image: linear-gradient(120deg, #155799, #159957)
-}
+} */
 
-@media screen and (min-width: 64em) {
+/* @media screen and (min-width: 64em) {
   .page-header {
     padding: 5rem 6rem
   }
@@ -640,7 +640,7 @@ a:hover {
   .project-tagline {
     font-size: 1rem
   }
-}
+} */
 
 .markdown-section {
   word-wrap: break-word
@@ -673,9 +673,9 @@ a:hover {
   }
 }
 
-.markdown-section img {
+/* .markdown-section img {
   max-width: 100%
-}
+} */
 
 .markdown-section h1,
 .markdown-section h2,
@@ -693,16 +693,16 @@ a:hover {
   margin-bottom: 1em
 }
 
-.markdown-section code {
+/* .markdown-section code {
   padding: 2px 4px;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 0.9rem;
   color: #567482;
   background-color: #f3f6fa;
   border-radius: 0.3rem
-}
+} */
 
-.markdown-section pre {
+/* .markdown-section pre {
   padding: 0.8rem;
   margin-top: 0;
   margin-bottom: 1rem;
@@ -723,9 +723,9 @@ a:hover {
   white-space: pre;
   background: transparent;
   border: 0
-}
+} */
 
-.markdown-section .highlight {
+/* .markdown-section .highlight {
   margin-bottom: 1rem
 }
 
@@ -762,9 +762,9 @@ a:hover {
 .markdown-section pre tt:before,
 .markdown-section pre tt:after {
   content: normal
-}
+} */
 
-.markdown-section ul,
+/* .markdown-section ul,
 .markdown-section ol {
   margin-top: 0
 }
@@ -817,9 +817,9 @@ a:hover {
 .markdown-section dl dd {
   padding: 0;
   margin-bottom: 1rem
-}
+} */
 
-.markdown-section hr {
+/* .markdown-section hr {
   height: 2px;
   padding: 0;
   margin: 1rem 0;
@@ -858,8 +858,8 @@ a:hover {
 
 .site-footer-credits {
   color: #819198
-}
-
+} */
+/* 
 h1>a,
 h2>a,
 h3>a,
@@ -868,3 +868,4 @@ h5>a,
 h6>a {
   color: #159957
 }
+ */

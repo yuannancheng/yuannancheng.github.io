@@ -1,6 +1,25 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+
+* {
+  box-sizing: border-box
+}
+
 html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
 }
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #606c71
+}
+
 .page-header {
   color: #fff;
   text-align: center;
@@ -10,19 +29,22 @@ html {
 
 @media screen and (min-width: 64em) {
   .page-header {
-    padding: 5rem 6rem
+    padding: 5rem 6rem;
+    height: 20rem;
   }
 }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .page-header {
-    padding: 3rem 4rem
+    padding: 3rem 4rem;
+    height: 14rem;
   }
 }
 
 @media screen and (max-width: 42em) {
   .page-header {
-    padding: 2rem 1rem
+    padding: 2rem 1rem;
+    height: 11rem;
   }
 }
 
@@ -49,71 +71,112 @@ html {
   }
 }
 
-.project-tagline {
-  margin-bottom: 2rem;
-  font-weight: normal;
-  opacity: 0.7
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0
+}
+
+.markdown-section {
+  word-wrap: break-word
+}
+
+.markdown-section :first-child {
+  margin-top: 0
 }
 
 @media screen and (min-width: 64em) {
-  .project-tagline {
-    font-size: 1.25rem
+  .markdown-section {
+    max-width: 64rem;
+    padding: 2rem 6rem;
+    margin: 0 auto;
+    font-size: 1.1rem
   }
 }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
-  .project-tagline {
-    font-size: 1.15rem
+  .markdown-section {
+    padding: 2rem 4rem;
+    font-size: 1.1rem
   }
 }
 
 @media screen and (max-width: 42em) {
-  .project-tagline {
+  .markdown-section {
+    padding: 2rem 1rem;
     font-size: 1rem
   }
 }
 
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section h5,
+.markdown-section h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: normal;
+  color: #159957
+}
+
+.markdown-section p {
+  margin-bottom: 1em
+}
+
+/* nav */
 body:not(.ready) .app-nav,
 body:not(.ready) > nav {
   display: none;
 }
+
 .app-nav {
-  margin: 25px 60px 0 0;
   position: absolute;
-  right: 0;
-  text-align: right;
+  width: 100%;
   z-index: 10;
-/* navbar dropdown */
 }
-.app-nav.no-badge {
-  margin-right: 25px;
-}
+
 .app-nav p {
   margin: 0;
 }
+
 .app-nav > a {
   margin: 0 1rem;
   padding: 5px 0;
 }
+
 .app-nav ul,
 .app-nav li {
-  display: inline-block;
+  display: block;
   list-style: none;
   margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
 }
+
+.app-nav > ul {
+  display: flex;
+  justify-content: center;
+}
+
 .app-nav a {
   color: inherit;
   font-size: 16px;
   text-decoration: none;
   transition: color 0.3s;
 }
+
 .app-nav a:hover {
   color: var(--theme-color, #42b983);
 }
+
 .app-nav a.active {
   border-bottom: 2px solid var(--theme-color, #42b983);
   color: var(--theme-color, #42b983);
 }
+
 .app-nav li {
   display: inline-block;
   margin: 0 1rem;
@@ -121,6 +184,7 @@ body:not(.ready) > nav {
   position: relative;
   cursor: pointer;
 }
+
 .app-nav li ul {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -132,11 +196,14 @@ body:not(.ready) > nav {
   overflow-y: auto;
   padding: 10px 0;
   position: absolute;
-  right: -15px;
-  text-align: left;
+  margin-top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
   top: 100%;
   white-space: nowrap;
 }
+
 .app-nav li ul li {
   display: block;
   font-size: 14px;
@@ -145,18 +212,39 @@ body:not(.ready) > nav {
   margin: 8px 14px;
   white-space: nowrap;
 }
+
 .app-nav li ul a {
   display: block;
   font-size: inherit;
   margin: 0;
   padding: 0;
 }
+
 .app-nav li ul a.active {
   border-bottom: 0;
 }
+
 .app-nav li:hover ul {
   display: block;
 }
+
+.app-nav-link {
+  position: relative;
+  color: #fff;
+  opacity: 0.7;
+}
+
+.app-nav-link :after {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -15px;
+  cursor: auto;
+}
+
 @media print {
   .github-corner,
   .sidebar-toggle,
@@ -165,24 +253,21 @@ body:not(.ready) > nav {
     display: none;
   }
 }
-@media screen and (max-width: 768px) {
-  .app-nav.no-badge {
-    margin-right: 0;
-  }
+
+@media screen and (min-width: 64em) {
   .app-nav {
-    margin: 10px 0 0 0;
+    top: 11rem;
   }
-  .app-nav li ul {
-    top: 30px;
-  }
+}
+
+@media screen and (min-width: 42em) and (max-width: 64em) {
   .app-nav {
-    transition: transform 250ms ease-out;
+    top: 7.4rem;
   }
-  .app-nav li ul {
-    right: -5px;
-    transform: translateY(5px);
-  }
-  body.close .app-nav {
-    display: none;
+}
+
+@media screen and (max-width: 42em) {
+  .app-nav {
+    top: 5.5rem;
   }
 }
