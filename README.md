@@ -1,99 +1,136 @@
-<h1>ONE一句</h1>
+<h1>一句</h1>
 
 <script>
-
-  let apiUrl = 'https://api.xygeng.cn/one';
+  const apiUrl = 'http://s.safe.360.cn/sapi/api',
+        proxy = 'https://showtime.applinzi.com/proxy.php';
+  let data = [];
+  let scheduleEl = null;
+  let scheduleElVan = null;
+  let showTimeDelay = 15E3; // 每条句子展示时间
+  let keyframesTime = 15; // 进度条关键帧时间间隔
   let timer = 0;
   let changeTimer = null;
-  let scheduleEl = null;
+  let resizeTimer = null;
+  let el = document.getElementById('main');
+  let h1 = el.getElementsByTagName('h1')[0];
+  let canWidth = 0;
 
-  function setValue (value) {
-    let el = document.getElementById('main');
-    let wrap = el.getElementsByClassName('wrap')[0];
+  function getAjax () {
+    return new Promise((resolve, reject)=> {
+      const xmlhttp = new XMLHttpRequest();
+      const url = proxy + '?url=' + apiUrl;
+      xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          resolve(JSON.parse(xmlhttp.responseText));
+        }
+      }
+      xmlhttp.open("GET", url, true);
+      xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xmlhttp.send();
+    });
+  }
+  async function handelAjax () {
+    const result = await getAjax();
+    data = result.data.list;
+    let midata = [];
+    for (let i = 0; i < data.length; i++) {
+      if ('mark_ext' in data[i] && data[i].mark_ext.length === 0) midata.push(data[i]); // 删除明星
+    }
+    data = midata;
+    midata = [];
+    for (let i = 0; i < data.length; i++) {
+      const link_txt = data[i].link_ext.link_txt;
+      const reg = new RegExp('(\n.?点击查看来源.?$|\n—?' + link_txt + '—?$|｜—?' + link_txt + '—?$|' + link_txt + '$)', 'g');
+      if (link_txt === '》》' || link_txt === '点击查看来源') data[i].link_ext.link_txt = '';
+      midata.push({
+        'txt': data[i].txt.replace(reg, ''),
+        'src': data[i].link_ext.link_txt,
+        'pic': data[i].pic
+      });
+    }
+    data = midata;
+    console.log(data);
+    showInit();
+  }
+  handelAjax();
+  
+  function showInit () {
+    for (let i = 0; i <= data.length; i++) {
+      if (i === data.length) {
+        setTimeout(() => {
+          handelAjax(); // 循环一次后重新请求数据
+        }, i * showTimeDelay);
+      } else {
+        setTimeout(() => {
+          changeShow(i); // 换下一句
+        }, i * showTimeDelay);
+      }
+    }
+  }
+  function changeShow (id) {
+    if(window.getComputedStyle) {
+      canWidth = window.getComputedStyle(h1, null).width.split('px')[0];
+    } else {
+      canWidth = h1.currentStyle.width.split('px')[0];
+    }
+    let wrap = el.getElementsByClassName('content-wrap')[0];
     if (!wrap) {
-      let scheduleBackground = document.createElement('div');
-      scheduleBackground.className = 'scheduleBackground';
-      scheduleBackground.style.position = 'relative';
-      scheduleBackground.style.width = '100%';
-      scheduleBackground.style.backgroundColor = '#eeeeee';
-      scheduleBackground.style.height = '1px';
-      scheduleBackground.style.margin = '-1em auto 1em';
-      scheduleBackground.style.overflow = 'hidden';
-      el.appendChild(scheduleBackground);
-      
-      let schedule = document.createElement('div');
-      schedule.className = 'schedule';
-      schedule.style.position = 'absolute';
-      schedule.style.width = '0';
-      schedule.style.height = '1px';
-      schedule.style.left = '0';
-      schedule.style.top = '0';
-      schedule.style.backgroundColor = '#159957';
-      scheduleBackground.appendChild(schedule);
-      
-      scheduleEl = schedule;
-      changeTimer = setInterval(changeSchedule, 20);
+      let scheduleCanvas = document.createElement('canvas');
+      scheduleCanvas.className = 'scheduleCanvas';
+      scheduleCanvas.setAttribute('width', canWidth);
+      scheduleCanvas.setAttribute('height', 1);
+      el.appendChild(scheduleCanvas);
+      scheduleEl = scheduleCanvas;
+      scheduleElVan = scheduleCanvas.getContext('2d');
+      changeTimer = setInterval(changeSchedule, keyframesTime);
       
       wrap = document.createElement('div');
-      wrap.style.display = 'inline-block';
-      wrap.style.position = 'relative';
-      wrap.style.whiteSpace = 'pre-wrap';
-      wrap.className = 'wrap';
+      wrap.className = 'content-wrap';
       el.appendChild(wrap);
       
       let content = document.createElement('p');
-      content.innerText = value.data.content;
-      content.style.display = 'inline-block';
+      content.innerText = data[id].txt;
       content.className = 'content';
       wrap.appendChild(content);
-
+      
       let br = document.createElement('br');
-      br.style.userSelect = 'none';
       wrap.appendChild(br);
-
+      
       let origin = document.createElement('p');
-      origin.innerHTML = '—— ' + value.data.origin;
-      origin.style.display = 'inline-block';
-      origin.style.float = 'right';
-      origin.style.marginTop = '0';
       origin.className = 'origin';
+      if (data[id].src.length > 0) origin.innerHTML = '—— ' + data[id].src;
+      else origin.innerHTML = '';
       wrap.appendChild(origin);
     } else {
       let content = wrap.getElementsByClassName('content')[0];
       let origin = wrap.getElementsByClassName('origin')[0];
-      content.innerText = value.data.content;
-      origin.innerHTML = '—— ' + value.data.origin;
+      content.innerText = data[id].txt;
+      if (data[id].src.length > 0) origin.innerHTML = '—— ' + data[id].src;
+      else origin.innerHTML = '';
       clearInterval(changeTimer);
       timer = 0;
-      changeTimer = setInterval(changeSchedule, 20);
+      scheduleElVan.clearRect(0, 0, scheduleEl.width, scheduleEl.height);
+      changeTimer = setInterval(changeSchedule, keyframesTime);
     }
   }
-  
-  function changeSchedule () {
-    timer = timer + 20 >= 60000 ? 60000 : timer + 20;
-    let newWidth = Math.floor(timer / 60000 * 10000) / 100 + '%';
-    scheduleEl.style.width = newWidth;
+  function changeSchedule() {
+    timer = timer + keyframesTime >= showTimeDelay ? showTimeDelay : timer + keyframesTime;
+    let newWidth = Math.floor(scheduleEl.width * timer / showTimeDelay);
+    scheduleElVan.fillStyle = '#159957'; // 画笔颜色
+    scheduleElVan.fillRect(0, 0, newWidth, 1);
   }
-
-  (function getContent () {
-    let xmlhttp;
-    if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
-      xmlhttp = new XMLHttpRequest();
-    } else { // code for IE6, IE5
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        let result = JSON.parse(xmlhttp.responseText);
-        setValue(result);
-        setTimeout(() => {
-          getContent();
-        }, 60000)
+  window.onresize = () => {
+    if (!resizeTimer) {
+      if(window.getComputedStyle) {
+        canWidth = window.getComputedStyle(h1, null).width.split('px')[0];
+      } else {
+        canWidth = h1.currentStyle.width.split('px')[0];
       }
+      scheduleEl.setAttribute('width', canWidth);
+      setTimeout(() => {
+        resizeTimer = null;
+      }, 50);
     }
-    xmlhttp.open("GET", apiUrl, true);
-    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xmlhttp.send();
-  })();
+  }
 
 </script>
