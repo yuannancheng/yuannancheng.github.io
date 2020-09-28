@@ -44,6 +44,9 @@ const getFixedUrl = (req) => {
  */
 self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim())
+})
+
+self.addEventListener('activated', event => {
   window.location.reload(true)
 })
 
