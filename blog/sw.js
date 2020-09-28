@@ -76,10 +76,7 @@ self.addEventListener('fetch', event => {
     // Update the cache with the version we fetched (only for ok status)
     event.waitUntil(
       Promise.all([fetchedCopy, caches.open(RUNTIME)])
-        .then(([response, cache]) => {
-          response.ok && cache.put(event.request, response)
-          window.location.reload(true) //重载
-        })
+        .then(([response, cache]) => response.ok && cache.put(event.request, response))
         .catch(_ => { /* eat any errors */ })
     )
   }
