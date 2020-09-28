@@ -275,7 +275,7 @@ body:not(.ready) > nav {
 /* 进度条、文本区 */
 .scheduleCanvas {
   position: relative;
-  margin: -1em auto 1em;
+  margin: -1em auto 2em;
   width: 100%;
   height: 1px;
   background-color: #eee;

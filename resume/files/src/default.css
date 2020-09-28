@@ -12,7 +12,13 @@
 
 .markdown-section > ul > li {
   list-style: none;
+  text-indent: -3em;
+  margin-left: 3em;
 }
+
+.markdown-section h1 {
+    margin: 3rem 0 1rem;
+  }
 
 @media screen and (max-width: 768px) {
   .markdown-section {
@@ -37,10 +43,21 @@
   border-bottom: 1px #eee solid;
 } */
 
-.photo {
+.markdown-section .photo {
   position: absolute;
   top: 3rem;
-  right: 1rem;
-  width: 20%;
+  right: 0rem;
+  width: 25%;
   max-width: 150px;
+}
+
+.markdown-section .prove {
+  width: 1em;
+  margin-left: .2em;
+}
+
+.markdown-section > ul:last-child > li {
+  list-style: none;
+  text-indent: -4.3em;
+  margin-left: 4.3em;
 }
