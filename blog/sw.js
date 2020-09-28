@@ -46,10 +46,6 @@ self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim())
 })
 
-self.addEventListener('activated', event => {
-  window.location.reload(true)
-})
-
 /**
  *  @Functional Fetch
  *  All network requests are being intercepted here.
@@ -80,7 +76,10 @@ self.addEventListener('fetch', event => {
     // Update the cache with the version we fetched (only for ok status)
     event.waitUntil(
       Promise.all([fetchedCopy, caches.open(RUNTIME)])
-        .then(([response, cache]) => response.ok && cache.put(event.request, response))
+        .then(([response, cache]) => {
+          response.ok && cache.put(event.request, response)
+          window.location.reload(true) //重载
+        })
         .catch(_ => { /* eat any errors */ })
     )
   }
