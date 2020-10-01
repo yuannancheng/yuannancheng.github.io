@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         爱心点击特效
-// @version      0.2.0.2
+// @version      0.2.0.3
 // @description  给所有打开的页面添加爱心点击特效
 // @author       在同一时空相遇 y17870181601@163.com
 // @namespace    https://greasyfork.org/zh-CN/users/690564-%E5%9C%A8%E5%90%8C%E4%B8%80%E6%97%B6%E7%A9%BA%E7%9B%B8%E9%81%87
@@ -10,6 +10,7 @@
 // @run-at       document-body
 // @updateURL    https://yuannancheng.github.io/tampermonkey/clickResult/clickResult.meta.js
 // @downloadURL  https://yuannancheng.github.io/tampermonkey/clickResult/clickResult.user.js
+// @note         V0.2.0.3(2020-10-01): 代码优化
 // @note         V0.2.0.2(2020-09-30): 代码优化
 // @note         V0.2.0.1(2020-09-27): 设置样式初始值，避免受页面内其他css样式污染
 // @note         V0.2(2020-09-26): 改进为油猴脚本，将css爱心修改为svg爱心，svg来自iconfont @shuaidaipeng(https://www.iconfont.cn/user/detail?uid=5244011)

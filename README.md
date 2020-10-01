@@ -40,7 +40,7 @@
     midata = [];
     for (let i = 0; i < data.length; i++) {
       const link_txt = data[i].link_ext.link_txt;
-      const reg = new RegExp('(\n.?点击查看来源.?$|\n—?' + link_txt + '—?$|｜—?' + link_txt + '—?$|' + link_txt + '$)', 'g');
+      const reg = new RegExp('(\n.?点击查看来源.?$|\n.?' + link_txt + '.?$|' + link_txt + '$)', 'g');
       if (link_txt === '》》' || link_txt === '点击查看来源') data[i].link_ext.link_txt = '';
       midata.push({
         'txt': data[i].txt.replace(reg, ''),

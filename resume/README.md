@@ -1,6 +1,6 @@
 # 个人信息
 
-![photo](//sinacloud.net/myfiles/resume/img/xxw.jpg ':class=photo')
+![photo](//sinacloud.net/myfiles/resume/img/zjz20201001.min.jpg ':class=photo')
 
 - **姓名：**袁楠程
 - **生日：**2000年5月
