@@ -111,7 +111,7 @@
       let content = wrap.getElementsByClassName('content')[0];
       let origin = wrap.getElementsByClassName('origin')[0];
       content.innerText = data[id].txt;
-      if (data[id].src.length > 0) origin.innerHTML = '—— ' + data[id].src;
+      if (data[id].src && data[id].src.length > 0) origin.innerHTML = '—— ' + data[id].src;
       else origin.innerHTML = '';
       clearInterval(changeTimer);
       timer = 0;
