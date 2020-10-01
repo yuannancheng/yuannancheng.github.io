@@ -40,8 +40,14 @@
     midata = [];
     for (let i = 0; i < data.length; i++) {
       const link_txt = data[i].link_ext.link_txt;
-      const reg = new RegExp('(\n.?点击查看来源.?$|\n.?' + link_txt + '.?$|' + link_txt + '$)', 'g');
-      if (link_txt === '》》' || link_txt === '点击查看来源') data[i].link_ext.link_txt = '';
+      const reg_filter = [
+        '｜', '—', '-', '→',
+        '←', ' ', '▷', '◁'
+      ]; // 在来源文字前后可能会加的字符
+      const reg = new RegExp('\n?(' + reg_filter.join('|') + '){0,2}(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') + '){0,2}$', 'g');
+      const link_txt_filter = ['点击查看来源', '》》']; // 需要清除的作者名
+      const link_txt_reg = new RegExp('.{0,2}(' + link_txt_filter.join('|') + ').{0,2}$', 'g');
+      if (link_txt_reg.test(link_txt)) data[i].link_ext.link_txt = '';
       midata.push({
         'txt': data[i].txt.replace(reg, ''),
         'src': data[i].link_ext.link_txt,
@@ -98,7 +104,7 @@
       
       let origin = document.createElement('p');
       origin.className = 'origin';
-      if (data[id].src.length > 0) origin.innerHTML = '—— ' + data[id].src;
+      if (data[id].src && data[id].src.length > 0) origin.innerHTML = '—— ' + data[id].src;
       else origin.innerHTML = '';
       wrap.appendChild(origin);
     } else {
