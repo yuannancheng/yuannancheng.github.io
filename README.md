@@ -39,13 +39,16 @@
     data = midata;
     midata = [];
     for (let i = 0; i < data.length; i++) {
+      
+      // =======如有新增规则编辑此处即可=========
+      const reg_filter = [' ', '｜', '—', '-', '→', '←', '▷', '◁']; // 在内容里可能会加的来源文字前后的字符 如'｜顾城《雨伞》'
+      const link_txt_filter = ['点击查看来源', '》》', '查看来源']; // 需要清除的来源名
+      // ======================================
+      
       const link_txt = data[i].link_ext.link_txt;
-      const reg_filter = [
-        '｜', '—', '-', '→',
-        '←', ' ', '▷', '◁'
-      ]; // 在来源文字前后可能会加的字符
-      const reg = new RegExp('\n?(' + reg_filter.join('|') + '){0,2}(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') + '){0,2}$', 'g');
-      const link_txt_filter = ['点击查看来源', '》》']; // 需要清除的作者名
+      // 过滤内容结尾的作者名
+      const reg = new RegExp('\n?(' + reg_filter.join('|') + '){0,3}(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') + '){0,5}$', 'g');
+      // 过滤如 '点击查看来源' 的作者名
       const link_txt_reg = new RegExp('.{0,2}(' + link_txt_filter.join('|') + ').{0,2}$', 'g');
       if (link_txt_reg.test(link_txt)) data[i].link_ext.link_txt = '';
       midata.push({
