@@ -47,7 +47,7 @@
       
       const link_txt = data[i].link_ext.link_txt;
       // 过滤内容结尾的作者名
-      const reg = new RegExp('\n?(' + reg_filter.join('|') + '){0,3}(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') + '){0,5}$', 'g');
+      const reg = new RegExp('\n?(' + reg_filter.join('|') + ')*(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') + ')*$', 'g');
       // 过滤如 '点击查看来源' 的作者名
       const link_txt_reg = new RegExp('.{0,2}(' + link_txt_filter.join('|') + ').{0,2}$', 'g');
       if (link_txt_reg.test(link_txt)) data[i].link_ext.link_txt = '';
