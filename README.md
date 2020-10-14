@@ -2,7 +2,7 @@
 
 <script>
   const apiUrl = 'http://s.safe.360.cn/sapi/api',
-        proxy = 'https://showtime.applinzi.com/proxy.php';
+    proxy = 'https://showtime.applinzi.com/proxy.php';
   let data = [];
   let scheduleEl = null;
   let scheduleElVan = null;
@@ -15,11 +15,11 @@
   let h1 = el.getElementsByTagName('h1')[0];
   let canWidth = 0;
 
-  function getAjax () {
-    return new Promise((resolve, reject)=> {
+  function getAjax() {
+    return new Promise((resolve, reject) => {
       const xmlhttp = new XMLHttpRequest();
       const url = proxy + '?url=' + apiUrl;
-      xmlhttp.onreadystatechange = function () {
+      xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
           resolve(JSON.parse(xmlhttp.responseText));
         }
@@ -29,7 +29,7 @@
       xmlhttp.send();
     });
   }
-  async function handelAjax () {
+  async function handelAjax() {
     const result = await getAjax();
     data = result.data.list;
     let midata = [];
@@ -39,16 +39,21 @@
     data = midata;
     midata = [];
     for (let i = 0; i < data.length; i++) {
-      
+
       // =======如有新增规则编辑此处即可=========
       const reg_filter = [' ', '｜', '—', '-', '→', '←', '▷', '◁']; // 在内容里可能会加的来源文字前后的字符 如'｜顾城《伞》'
       const link_txt_filter = ['点击查看来源', '》》', '查看来源']; // 需要清除的来源名
       // ======================================
-      
+
       const link_txt = data[i].link_ext.link_txt;
+      // 过滤内容开头的作者名
+      const regStart = '^(' + reg_filter.join('|') + ')*(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') +
+        ')*';
       // 过滤内容结尾的作者名
-      const reg = new RegExp('\n?(' + reg_filter.join('|') + ')*(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') + ')*$', 'g');
+      const regEnd = '\n?(' + reg_filter.join('|') + ')*(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') +
+        ')*$';
       // 过滤如 '点击查看来源' 的作者名
+      const reg = new RegExp('(' + regStart + '|' + regEnd + ')', 'g')
       const link_txt_reg = new RegExp('.{0,2}(' + link_txt_filter.join('|') + ').{0,2}$', 'g');
       if (link_txt_reg.test(link_txt)) data[i].link_ext.link_txt = '';
       midata.push({
@@ -62,8 +67,8 @@
     showInit();
   }
   handelAjax();
-  
-  function showInit () {
+
+  function showInit() {
     for (let i = 0; i <= data.length; i++) {
       if (i === data.length) {
         setTimeout(() => {
@@ -76,8 +81,9 @@
       }
     }
   }
-  function changeShow (id) {
-    if(window.getComputedStyle) {
+
+  function changeShow(id) {
+    if (window.getComputedStyle) {
       canWidth = window.getComputedStyle(h1, null).width.split('px')[0];
     } else {
       canWidth = h1.currentStyle.width.split('px')[0];
@@ -92,19 +98,19 @@
       scheduleEl = scheduleCanvas;
       scheduleElVan = scheduleCanvas.getContext('2d');
       changeTimer = setInterval(changeSchedule, keyframesTime);
-      
+
       wrap = document.createElement('div');
       wrap.className = 'content-wrap';
       el.appendChild(wrap);
-      
+
       let content = document.createElement('p');
       content.innerText = data[id].txt;
       content.className = 'content';
       wrap.appendChild(content);
-      
+
       let br = document.createElement('br');
       wrap.appendChild(br);
-      
+
       let origin = document.createElement('p');
       origin.className = 'origin';
       if (data[id].src && data[id].src.length > 0) origin.innerHTML = '—— ' + data[id].src;
@@ -122,6 +128,7 @@
       changeTimer = setInterval(changeSchedule, keyframesTime);
     }
   }
+
   function changeSchedule() {
     timer = timer + keyframesTime >= showTimeDelay ? showTimeDelay : timer + keyframesTime;
     let newWidth = Math.floor(scheduleEl.width * timer / showTimeDelay);
@@ -130,7 +137,7 @@
   }
   window.onresize = () => {
     if (!resizeTimer) {
-      if(window.getComputedStyle) {
+      if (window.getComputedStyle) {
         canWidth = window.getComputedStyle(h1, null).width.split('px')[0];
       } else {
         canWidth = h1.currentStyle.width.split('px')[0];
@@ -141,5 +148,4 @@
       }, 50);
     }
   }
-
 </script>
