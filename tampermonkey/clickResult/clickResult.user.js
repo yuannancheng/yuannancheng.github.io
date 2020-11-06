@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         爱心点击特效
-// @version      0.2.0.3
+// @version      0.2.0.4
 // @description  给所有打开的页面添加爱心点击特效
 // @author       在同一时空相遇 y17870181601@163.com
 // @namespace    https://greasyfork.org/zh-CN/users/690564-%E5%9C%A8%E5%90%8C%E4%B8%80%E6%97%B6%E7%A9%BA%E7%9B%B8%E9%81%87
@@ -10,6 +10,7 @@
 // @run-at       document-body
 // @updateURL    https://yuannancheng.github.io/tampermonkey/clickResult/clickResult.meta.js
 // @downloadURL  https://yuannancheng.github.io/tampermonkey/clickResult/clickResult.user.js
+// @note         V0.2.0.4(2020-11-06): 增加body最小高度样式，避免在短页面中部分区域无法生效
 // @note         V0.2.0.3(2020-10-01): 代码优化
 // @note         V0.2.0.2(2020-09-30): 代码优化
 // @note         V0.2.0.1(2020-09-27): 设置样式初始值，避免受页面内其他css样式污染
@@ -47,6 +48,9 @@
     }
     document.body.addEventListener('mousedown', Meet_you_clickResult);
     GM_addStyle(`
+        body {
+            min-height: 100%;
+        }
         .Meet_you_clickResult {
             position: fixed;
             user-select: none;
