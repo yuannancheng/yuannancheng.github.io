@@ -48,9 +48,8 @@
     }
     document.body.addEventListener('mousedown', Meet_you_clickResult);
     GM_addStyle(`
-        body {
-            min-height: 100%;
-        }
+        html { height: 100%; }
+        body { min-height: 100%; }
         .Meet_you_clickResult {
             position: fixed;
             user-select: none;
