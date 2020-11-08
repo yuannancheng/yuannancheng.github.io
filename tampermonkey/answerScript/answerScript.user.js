@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         竞赛刷题辅助脚本
-// @version      0.6
+// @version      0.7
 // @description  上一题：左键、下一题：右键、判断对错：Enter、前往第1题：1、前往上次题号：L
 // @author       Meet you
 // @license      BSD Zero Clause License
@@ -17,7 +17,7 @@ var option = {
     testId: 28 // 水利工程造价
 };
 
-(function init() {
+(function init () {
     let href = location.href;
     let answerHrefReg = /^(http|https):\/\/sljsbmpt\.xq5u\.com\/Manager\/Index\.asp(\?.+)*$/;
     let homeHrefReg = /^(http|https):\/\/sljsbmpt\.xq5u\.com(\/)*(Index.asp)*(\?.+)*$/;
@@ -26,9 +26,9 @@ var option = {
     } else if (homeHrefReg.test(href)) {
         homeInit();
     }
-})();
+}());
 
-function homeInit() {
+function homeInit () {
     function homeonload () {
         const ul = document.getElementsByClassName('_select-select-ul');
         const listClose = document.getElementsByClassName('_htools-select');
@@ -77,11 +77,7 @@ function answerInit () {
 
 function keydown(e) {
     // 节流
-    if (window._timer) {
-        return
-    } else if (window._timer === undefined) {
-        window._timer = null;
-    }
+    if (window._timer) return
     window._timer = setTimeout(() => {
         window._timer = null;
     }, 300);
@@ -128,7 +124,7 @@ function keydown(e) {
         }
         const keyCode = e.keyCode;
         switch (keyCode) {
-            case 37: // 左方向键
+            case 37: // 左方向键 上一题
                 if (buttonList.prev) {
                     localStorage.setItem('lastIndex', thisId);
                     buttonList.prev.click();
@@ -155,14 +151,16 @@ function keydown(e) {
         }
         function isTrue () {
             let el = document.getElementById('qTrue').getElementsByTagName('span')[0];
-            if (el && el.innerText === '回答正确！') {
+            if (el !== undefined) {
                 clearInterval(isTrueTry);
-                setTimeout(() => {
-                    if (buttonList.next) {
-                        localStorage.setItem('lastIndex', thisId);
-                        buttonList.next.click();
-                    }
-                }, 500);
+                if (el.innerText === '回答正确！') {
+                    setTimeout(() => {
+                        if (buttonList.next) {
+                            localStorage.setItem('lastIndex', thisId);
+                            buttonList.next.click();
+                        }
+                    }, 500);
+                }
             }
         }
     }
