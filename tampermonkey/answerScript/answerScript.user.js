@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         竞赛刷题辅助脚本
-// @version      0.7
+// @version      0.8
 // @description  上一题：左键、下一题：右键、判断对错：Enter、前往第1题：1、前往上次题号：L
 // @author       Meet you
 // @license      BSD Zero Clause License
@@ -51,6 +51,7 @@ function homeInit () {
             }
         }
     }
+
     var loading = setInterval(homeonload, 300);
 }
 
@@ -58,21 +59,29 @@ function answerInit () {
     window.addEventListener('keydown', keydown);
     // answerStyleReset(); // 为了避免实际考试时不习惯，所以不对答题样式进行修改
 
-    var el = document.querySelector('.left_menu > ul > li:first-Child > a'); // 逐题练习按钮
-    el.onclick = () => {
-        const ul = document.getElementById('sCategory');
-        if (ul !== null) {
-            const opntionList = ul.getElementsByTagName('option');
-            for (let i = 0; i < opntionList.length; i++) {
-                let thisOption = opntionList[i];
-                if (thisOption.value * 1 === option.testId) {
-                    thisOption.selected = true; // 选中水利工程造价
-                    document.getElementById('Enter').click(); // 查询
-                    break;
+    function listonload () {
+        var el = document.querySelector('.left_menu > ul > li:first-Child > a'); // 逐题练习按钮
+        if (el) {
+            clearInterval(loading);
+            delete loading;
+            el.onclick = () => {
+                const ul = document.getElementById('sCategory');
+                if (ul !== null) {
+                    const opntionList = ul.getElementsByTagName('option');
+                    for (let i = 0; i < opntionList.length; i++) {
+                        let thisOption = opntionList[i];
+                        if (thisOption.value * 1 === option.testId) {
+                            thisOption.selected = true; // 选中水利工程造价
+                            document.getElementById('Enter').click(); // 查询
+                            break;
+                        }
+                    }
                 }
             }
         }
     }
+
+    var loading = setInterval(listonload, 300);
 }
 
 function keydown(e) {
