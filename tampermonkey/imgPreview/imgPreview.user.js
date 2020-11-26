@@ -77,6 +77,12 @@
                 close.className = 'close';
                 close.addEventListener('click', () => {
                     document.querySelector('.Meet_you_img_preview').classList.add('Meet_you_hidden');
+                    const previewBox = document.querySelector('.Meet_you_img_preview');
+                    const img = document.querySelector('.Meet_you_img_preview > .img')
+                    img.style.transform = 'rotate(0deg)';
+                    img.style.width = '70%';
+                    previewBox.rotateDeg = 0;
+                    previewBox.widthSize = 70;
                 });
                 preview.appendChild(close);
 
