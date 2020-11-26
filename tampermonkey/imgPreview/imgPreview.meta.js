@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         教务系统图片预览
-// @version      0.1
+// @version      0.2
 // @description  实现教务处双创学分审核系统附件预览功能
 // @author       在同一时空相遇 y17870181601@163.com
 // @namespace    https://greasyfork.org/zh-CN/users/690564-%E5%9C%A8%E5%90%8C%E4%B8%80%E6%97%B6%E7%A9%BA%E7%9B%B8%E9%81%87

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         教务系统图片预览
-// @version      0.2
+// @version      0.1
 // @description  实现教务处双创学分审核系统附件预览功能
 // @author       在同一时空相遇 y17870181601@163.com
 // @namespace    https://greasyfork.org/zh-CN/users/690564-%E5%9C%A8%E5%90%8C%E4%B8%80%E6%97%B6%E7%A9%BA%E7%9B%B8%E9%81%87
@@ -121,6 +121,7 @@
 
                 document.body.appendChild(preview);
             }
+            document.querySelector('#ajaxLoading').style.display = 'none';
         } else {
             alert('操作失败，请稍后重试。');
         }
@@ -139,10 +140,8 @@
                         el.addEventListener('click', (e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            var loading = document.querySelector('.ajax-loading');
-                            loading.style.display = 'block';
+                            document.querySelector('#ajaxLoading').style.display = 'block';
                             handelAjax(pl);
-                            loading.style.display = 'none';
                             return false;
                         });
                     }
@@ -151,8 +150,164 @@
         }
     }
 
+    function 申请审批查询 () {
+        const options = {
+            'class': '18水工5班',
+            'status': '审批中'
+        };
+        var icon_down = document.querySelectorAll('i[aria-label="图标: down"]');
+        for (let i = 0; i < icon_down.length; i++) {
+            var span = icon_down[i].parentElement.childNodes[1];
+            if (span && span.innerHTML === '展开') {
+                icon_down = icon_down[i].parentElement;
+                break;
+            }
+        }
+        icon_down.click();
+        setTimeout(() => {
+            var label_class = document.querySelector('label[title=\'班级：\']');
+            if (label_class) {
+                var icon_class = label_class.parentElement.parentElement.querySelector('i[aria-label="图标: down"]').parentElement.parentElement.parentElement;
+                icon_class.click();
+                setTimeout(() => {
+                    var li = document.querySelectorAll('li[class=\'ant-select-dropdown-menu-item\'');
+                    for (let i = 0; i < li.length; i++) {
+                        if (li[i].innerHTML === options.class) {
+                            li[i].click();
+                            break;
+                        }
+                    }
+                }, 300);
+            }
+
+            setTimeout(() => {
+                var label_status = document.querySelector('label[title=\'审核状态：\']');
+                if (label_status) {
+                    var icon_status = label_status.parentElement.parentElement.querySelector('i[aria-label="图标: down"]').parentElement.parentElement.parentElement;
+                    icon_status.click();
+                    setTimeout(() => {
+                        var li = document.querySelectorAll('li[class=\'ant-select-dropdown-menu-item\'');
+                        for (let i = 0; i < li.length; i++) {
+                            if (li[i].innerHTML === options.status) {
+                                li[i].click();
+                                break;
+                            }
+                        }
+                        setTimeout(() => { // 自动查询好像没有用，但是手动查询也没有用
+                            // var submit = document.querySelectorAll('button[type=\'submit\']')[0];
+                            // submit.click();
+                            // icon_down.click();
+                        }, 300);
+                    }, 300);
+                }
+            }, 300);
+
+        }, 300);
+    }
+
+    function 学分认定查询 () {
+        const options = {
+            'class': '18水工5班',
+            'status': '待认定'
+        };
+        var icon_down = document.querySelectorAll('i[aria-label="图标: down"]');
+        for (let i = 0; i < icon_down.length; i++) {
+            var span = icon_down[i].parentElement.childNodes[1];
+            if (span && span.innerHTML === '展开') {
+                icon_down = icon_down[i].parentElement;
+                break;
+            }
+        }
+        icon_down.click();
+        setTimeout(() => {
+            var label_class = document.querySelector('label[title=\'班级：\']');
+            if (label_class) {
+                var icon_class = label_class.parentElement.parentElement.querySelector('i[aria-label="图标: down"]').parentElement.parentElement.parentElement;
+                icon_class.click();
+                setTimeout(() => {
+                    var li = document.querySelectorAll('li[class=\'ant-select-dropdown-menu-item\'');
+                    for (let i = 0; i < li.length; i++) {
+                        if (li[i].innerHTML === options.class) {
+                            li[i].click();
+                            break;
+                        }
+                    }
+                }, 300);
+            }
+
+            setTimeout(() => {
+                var label_status = document.querySelector('label[title=\'认定状态：\']');
+                if (label_status) {
+                    var icon_status = label_status.parentElement.parentElement.querySelector('i[aria-label="图标: down"]').parentElement.parentElement.parentElement;
+                    icon_status.click();
+                    setTimeout(() => {
+                        var li = document.querySelectorAll('li[class=\'ant-select-dropdown-menu-item\'');
+                        for (let i = 0; i < li.length; i++) {
+                            if (li[i].innerHTML === options.status) {
+                                li[i].click();
+                                break;
+                            }
+                        }
+                        setTimeout(() => { // 自动查询好像没有用，但是手动查询也没有用
+                            // var submit = document.querySelectorAll('button[type=\'submit\']')[0];
+                            // submit.click();
+                            // icon_down.click();
+                        }, 300);
+                    }, 300);
+                }
+            }, 300);
+
+        }, 300);
+    }
+
     (function () {
         // init
+        window.addEventListener('click', (e) => {
+            const keyword = ['查看', '审批', '认定']; // 点击这些按钮的将会出现【附件】
+            if (e.target.tagName === 'A' && keyword.includes(e.target.innerText)) {
+                setTimeout(() => {
+                    addHandelClick();
+                }, 300);
+                return;
+            }
+
+            /*
+            if ( e.target.tagName === 'LI' && e.target.childNodes[0].tagName === 'A' ) {
+                if (e.target.childNodes[0].childNodes[0].innerHTML === '双创学分申请审批') {
+                    setTimeout(() => {
+                        申请审批查询();
+                    }, 300);
+                    console.log('审批查询');
+                    return;
+                }
+                if (e.target.childNodes[0].childNodes[0].innerHTML === '双创学分申请认定') {
+                    setTimeout(() => {
+                        学分认定查询();
+                    }, 300);
+                    console.log('认定查询');
+                    return;
+                }
+            }
+
+            if ( e.target.tagName === 'A' ) {
+                if (e.target.childNodes[0].innerHTML === '双创学分申请审批') {
+                    setTimeout(() => {
+                        申请审批查询();
+                    }, 300);
+                    console.log('审批查询');
+                    return;
+                }
+                if (e.target.childNodes[0].innerHTML === '双创学分申请认定') {
+                    setTimeout(() => {
+                        学分认定查询();
+                    }, 300);
+                    console.log('认定查询');
+                    return;
+                }
+            }
+            */
+        });
+
         GM_addStyle(`
             .Meet_you_img_preview {
                 position: fixed;
@@ -210,14 +365,6 @@
 
             .Meet_you_hidden { display: none; }
         `);
-        window.addEventListener('click', (e) => {
-            const keyword = ['查看', '审批', '认定']; // 点击这些按钮的将会出现【附件】
-            if (e.target.tagName === 'A' && keyword.includes(e.target.innerText)) {
-                setTimeout(() => {
-                    addHandelClick();
-                }, 100);
-            }
-        });
     }());
 
     var compile = (function() {
