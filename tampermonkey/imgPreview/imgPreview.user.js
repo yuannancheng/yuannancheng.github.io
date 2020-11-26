@@ -96,7 +96,7 @@
                 widthUp.addEventListener('click', () => {
                     const previewBox = document.querySelector('.Meet_you_img_preview');
                     const oldSi = previewBox.widthSize || '70';
-                    const newSi = oldSi * 1 + 10;
+                    const newSi = oldSi * 1 + 10 >= 200 ? 200 : oldSi * 1 + 10;
                     document.querySelector('.Meet_you_img_preview > .img').style.width = newSi +'%';
                     previewBox.widthSize = newSi;
                 });
@@ -107,7 +107,7 @@
                 widthDo.addEventListener('click', () => {
                     const previewBox = document.querySelector('.Meet_you_img_preview');
                     const oldSi = previewBox.widthSize || '70';
-                    const newSi = oldSi * 1 - 10;
+                    const newSi = oldSi * 1 - 10 <= 0 ? 10 : oldSi * 1 - 10;
                     document.querySelector('.Meet_you_img_preview > .img').style.width = newSi +'%';
                     previewBox.widthSize = newSi;
                 });
