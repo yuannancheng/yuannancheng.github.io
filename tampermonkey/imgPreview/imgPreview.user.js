@@ -171,7 +171,7 @@
             .Meet_you_img_preview > .widthUp,
             .Meet_you_img_preview > .widthDo {
                 position: fixed;
-                right: 20px;
+                right: 40px;
                 background-color: #fff;background-size: 70%;
                 background-position: 50%;
                 background-repeat: no-repeat;
