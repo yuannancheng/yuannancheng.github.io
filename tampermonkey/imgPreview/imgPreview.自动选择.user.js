@@ -121,10 +121,10 @@
 
                 document.body.appendChild(preview);
             }
-            document.querySelector('#ajaxLoading').style.display = 'none';
         } else {
             alert('操作失败，请稍后重试。');
         }
+        document.querySelector('#ajaxLoading').style.display = 'none';
     }
 
     function addHandelClick () {

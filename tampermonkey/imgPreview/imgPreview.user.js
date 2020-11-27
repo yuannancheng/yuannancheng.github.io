@@ -124,6 +124,7 @@
         } else {
             alert('操作失败，请稍后重试。');
         }
+        document.querySelector('.ajax-loading').style.display = 'none';
     }
 
     function addHandelClick () {
@@ -139,10 +140,8 @@
                         el.addEventListener('click', (e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            var loading = document.querySelector('.ajax-loading');
-                            loading.style.display = 'block';
+                            document.querySelector('.ajax-loading').style.display = 'block';
                             handelAjax(pl);
-                            loading.style.display = 'none';
                             return false;
                         });
                     }
