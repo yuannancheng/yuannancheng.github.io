@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         教务系统图片预览
-// @version      0.2
+// @version      0.3
 // @description  实现教务处双创学分审核系统附件预览功能
 // @author       在同一时空相遇 y17870181601@163.com
 // @namespace    https://greasyfork.org/zh-CN/users/690564-%E5%9C%A8%E5%90%8C%E4%B8%80%E6%97%B6%E7%A9%BA%E7%9B%B8%E9%81%87
@@ -13,6 +13,7 @@
 // @updateURL    https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.meta.js
 // @downloadURL  https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.user.js
 // @run-at       document-idle
+// @note         V.0.3(2020-11-30) 解决在Chrome浏览器中无法点击问题
 // ==/UserScript==
 
 (function() {
@@ -153,6 +154,9 @@
     (function () {
         // init
         GM_addStyle(`
+            * {
+                pointer-events: inherit; /* 解决在Chrome浏览器点击无效 */
+            }
             .Meet_you_img_preview {
                 position: fixed;
                 top: 0;
