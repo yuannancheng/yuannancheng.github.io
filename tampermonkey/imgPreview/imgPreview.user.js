@@ -1,24 +1,29 @@
 // ==UserScript==
-// @name         教务系统图片预览
-// @version      0.3
-// @description  实现教务处双创学分审核系统附件预览功能
+// @name         信息平台图片预览
+// @version      0.4
+// @description  实现信息平台附件预览功能
 // @author       在同一时空相遇 y17870181601@163.com
 // @namespace    https://greasyfork.org/zh-CN/users/690564-%E5%9C%A8%E5%90%8C%E4%B8%80%E6%97%B6%E7%A9%BA%E7%9B%B8%E9%81%87
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAFIElEQVR4nO3bT47URhTA4Vej2TM3CTegkRBkmRvkClwABCgLlnMEjpBlEiQYbkBuwh7NOAsgwMC86X8uV7m+b9e2W36bn+x2u0qwqPv/vLhXpnLxs31TmTZvHz59V3kkvnGy9ADQMoFAQiCQEAgkBAIJgUBCIJAQCCQEAgmBQEIgkBAIJAQCCYFAQiCQEAgkBAIJgUBCIJAQCCQEAgmBQEIgkBAIJAQCidOlB4DM/b9e/FJKeTZNcRYRUUpcvHn05Hmt87uC0KwHr1/eiVJeRcRvpcSmlNhExLPN33/8XmsGgdCkB69f3rm8+nhRIu5e31fi6rzWHAKhOVkcERElylmtWQRCU26LIyJimuKi1jx+pNOMreKI6UNEPK41kysITdg6jik2b399+m+tuQTC4lqNI0IgLKzlOCIEwoJajyNCICykhzgiBMICeokjQiBU1lMcEQKhot7iiBAIlfQYR4RAqKDXOCIEwsx6jiNCIMyo9zgiBMJM1hBHhECYwVriiBAIR7amOCIEwhGtLY4IgXAka4wjQiAcwVrjiBAIB1pzHBEC4QBrjyNCIOxphDgiBMIeRokjQiDsaKQ4IgTCDkaLI0IgbGnEOCIEwhZGjSNCINxi5DgiBEJi9DgiBMINxPGJQPiBOL4SCN8Rx/cEwv/E8SOBEBHiuIlAEEdCIIMTR04gAxPH7QQyKHFsRyADEsf2BDIYcexGIAMRx+4EMghx7EcgAxDH/gSycuI4jEBWTByHE8hKieM4BLJC4jgegayMOI5LICsijuMTyEqIYx4CWQFxzEcgnRPHvATSMXHMTyCdEkcdAumQOOoRSGfEUZdAOiKO+gTSCXEsQyAdEMdyBNI4cSzrdOkBSFxNZ5dFHEsSSMtKeVUizm7aLY75ucVqWIkijoUJpEPiqEcgnRFHXeX+Py/uLT3EyKarcvekxPm2x19N8bicTO/nnImvTstULpYeYmSl7Hb8SYnzmHb8EntziwUJgUBCIJAQCCQEAonTqUybpYcYxtV09un1kZv/If/+cI90l+Z5YSXbvJV73VSmzduHT9/NORc5t1gV7BMHbRDIzMTRN4HMSBz9E8hMtl0JeDXF45pzsRsLpmawyzLZcjKdebeqXa4gR2YN+boI5IjEsT4CORJxrJNAjkAc6yWQA4lj3QRyAHGsn0D2JI4xCGQP4hiHQHYkjrEIZAfiGI9AtiSOMQlkC+IYl0BuIY6xCSQhDgRyA3EQIZCfEgdfCOQacfAtgXxDHFwnkM/Ewc8IJMTBzYYPRBxkhg5EHNxm2EDEwTaGDEQcbGu4QMTBLoYKRBzsaphAxME+hghEHOxr9YGIg0OsOhBxcKjVBiIOjmGVgYiDY1ldIOLgmFYViDg4ttUEIg7msIpAxMFcug9EHMyp60DEwdy6DUQc1NBlIOKglu4CEQc1dRWIOKitm0DEwRK6CEQcLKX5QMTBkpoORBwsrdlAxEELmgxEHLSiuUDEQUuaCkQctKaZQMRBi5oIRBy0avFAxEHLFg1EHLRusUDEQQ8WCUQc9KJ6IOKgJ1UDEQe9qRaIOOhRtUAuLz/+KQ56Uy2QUmJz0z5x0KpqgUwxfbhxuzhoVL0rSJTz69vEQeuqBfLm0ZPnEfHsy+cp4r04aN1pzZN9juR5zXPCIRZ/WRFaJhBICAQSAoGEQCAhEEgIBBICgYRAICEQSAgEEgKBhEAgIRBICAQSAoGEQCAhEEgIBBICgYRAICEQSAgEEgKBhEAg8R+CSFTHUUbE3wAAAABJRU5ErkJggg==
 // @match        http://jw.jxslsd.com:9995/
 // @match        http://jw.jxslsd.com:9090/
+// @match        http://xg.jxslsd.com:6931/
 // @grant        GM_addStyle
 // @grant        GM_xmlhttpRequest
 // @connect      *
 // @updateURL    https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.meta.js
 // @downloadURL  https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.user.js
 // @run-at       document-idle
-// @note         V.0.3(2020-11-30) 解决在Chrome浏览器中无法点击问题
+// @note         V.0.4(2021-01-05) 增加学工系统预览
 // ==/UserScript==
 
 (function() {
     'use strict';
 
+    const jwHrefReg = /^http(s)?:\/\/jw\.jxslsd\.com.*$/,
+          xgHrefReg = /^http(s)?:\/\/xg\.jxslsd\.com.*$/;
+
+    // 请求教务图片
     function getAjax (url, pl, _t) {
         return new Promise((resolve, reject) => {
             const tokenKey = 'lyedu';
@@ -55,10 +60,49 @@
         });
     }
 
-    async function handelAjax (pl) {
+    // 请求学工图片
+    function getXgAjax (url) {
+        return new Promise((resolve, reject) => {
+            const headers = {
+                'Accept': 'application/json',
+                'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
+                'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': 'Bearer undefined',
+                'Content-Type': 'application/json;charset=UTF-8',
+                'X-Requested-With': 'XMLHttpRequest'
+            };
+            const fileReader = new FileReader();
+            GM_xmlhttpRequest({
+                method: "GET",
+                url: url,
+                headers: headers,
+                responseType: 'blob',
+                onload: function(r) {
+                    const blob = r.response;
+                    fileReader.onload = function(evt) {
+                        // 用Data URI的格式读取文件内容
+                        const result = evt.target.result;
+                        resolve(result);
+                    }
+                    // 以Data URI的形式加载blob
+                    fileReader.readAsDataURL(blob);
+                }
+            });
+        });
+    }
+
+    async function handelAjax (pl, xg = false) {
         const _t = Date.parse(new Date) / 1e3;
         const url = 'http://jw.jxslsd.com:9995/api/baseInfo/fileUploadResource/downloadFile?_t=' + _t;
-        const result = await getAjax(url, pl, _t);
+        let result = null;
+
+        if (xg) {
+            result = await getXgAjax(pl);
+        } else {
+            result = await getAjax(url, pl, _t);
+        }
+
         if (result) {
             const oldView = document.querySelector('.Meet_you_img_preview');
             if (oldView && 'tagName' in oldView && oldView.tagName === 'DIV') {
@@ -129,24 +173,68 @@
     }
 
     function addHandelClick () {
-        var label = document.querySelector('label[title=\'附件信息:\']');
-        if (label) {
-            var a = label.parentElement.parentElement.querySelectorAll('a');
-            for (let i = 0; i < a.length; i++) {
-                let el = a[i];
-                for (let _a in el) {
-                    if (/^__reactInternalInstance\$([0-9]|[a-z]){5,15}$/.test(_a)) {
+        if (jwHrefReg.test(location.href)) { // 教务系统
+            var label = document.querySelector('label[title=\'附件信息:\']');
+            if (label) {
+                setTimeout(() => {
+                    var a = label.parentElement.parentElement.querySelectorAll('a');
+                    for (let i = 0; i < a.length; i++) {
+                        let el = a[i];
+                        for (let _a in el) {
+                            if (/^__reactInternalInstance\$([0-9]|[a-z]){5,15}$/.test(_a)) {
+                                console.log('绑定事件');
+                                const pl = el[_a].return.memoizedProps.children[1]._owner.memoizedState.fileList[0];
+                                el.addEventListener('click', (e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    document.querySelector('.ajax-loading').style.display = 'block';
+                                    handelAjax(pl);
+                                    return false;
+                                });
+                            }
+                        }
+                    }
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    addHandelClick();
+                }, 200)
+            }
+        } else if (xgHrefReg.test(location.href)) { // 学工系统
+            let a = document.querySelectorAll('.ant-upload-list-item-name');
+            if (a.length) {
+                setTimeout(() => {
+                    for (let i = 0; i < a.length; i++) {
+                        let el = a[i];
                         console.log('绑定事件');
-                        const pl = el[_a].return.memoizedProps.children[1]._owner.memoizedState.fileList[0];
+                        const pl = el.href;
                         el.addEventListener('click', (e) => {
                             e.preventDefault();
                             e.stopPropagation();
                             document.querySelector('.ajax-loading').style.display = 'block';
-                            handelAjax(pl);
+                            handelAjax(pl, true);
                             return false;
                         });
                     }
-                }
+
+                    const div = document.createElement('div');
+                    div.className = 'ajax-loading';
+                    div.style = `
+                        position: fixed;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        z-index: 999999;
+                        display: none;
+                        background: url(\'./page-loader.gif\') no-repeat center center;
+                    `;
+                    document.body.appendChild(div);
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    addHandelClick();
+                }, 200)
             }
         }
     }
@@ -213,14 +301,23 @@
 
             .Meet_you_hidden { display: none; }
         `);
-        window.addEventListener('click', (e) => {
-            const keyword = ['查看', '审批', '认定']; // 点击这些按钮的将会出现【附件】
-            if (e.target.tagName === 'A' && keyword.includes(e.target.innerText)) {
-                setTimeout(() => {
-                    addHandelClick();
-                }, 100);
-            }
-        });
+
+        if (jwHrefReg.test(location.href)) { // 教务初始化
+            window.addEventListener('click', (e) => {
+                const keyword = ['查看', '审批', '认定']; // 点击这些按钮的将会出现【附件】
+                if (e.target.tagName === 'A' && keyword.includes(e.target.innerText)) {
+                    setTimeout(() => {
+                        addHandelClick();
+                    }, 100);
+                }
+            });
+        } else if (xgHrefReg.test(location.href)) { // 学工初始化
+            setTimeout(()=>{
+                addHandelClick();
+                console.log('学工初始化');
+            }, 200);
+
+        }
     }());
 
     var compile = (function() {
