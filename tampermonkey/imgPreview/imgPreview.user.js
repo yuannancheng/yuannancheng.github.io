@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         信息平台图片预览
-// @version      0.4
+// @version      0.5
 // @description  实现信息平台附件预览功能
 // @author       在同一时空相遇 y17870181601@163.com
 // @namespace    https://greasyfork.org/zh-CN/users/690564-%E5%9C%A8%E5%90%8C%E4%B8%80%E6%97%B6%E7%A9%BA%E7%9B%B8%E9%81%87
@@ -10,10 +10,11 @@
 // @match        http://xg.jxslsd.com:6931/
 // @grant        GM_addStyle
 // @grant        GM_xmlhttpRequest
-// @connect      *
+// @connect      http://*jxslsd.com*
 // @updateURL    https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.meta.js
 // @downloadURL  https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.user.js
 // @run-at       document-idle
+// @note         V.0.5(2021-01-10) 修复多附件时只能预览首个附件
 // @note         V.0.4(2021-01-05) 增加学工系统预览
 // ==/UserScript==
 
@@ -183,7 +184,7 @@
                         for (let _a in el) {
                             if (/^__reactInternalInstance\$([0-9]|[a-z]){5,15}$/.test(_a)) {
                                 console.log('绑定事件');
-                                const pl = el[_a].return.memoizedProps.children[1]._owner.memoizedState.fileList[0];
+                                const pl = el[_a].return.memoizedProps.children[1]._owner.memoizedState.fileList[i];
                                 el.addEventListener('click', (e) => {
                                     e.preventDefault();
                                     e.stopPropagation();
@@ -304,7 +305,7 @@
 
         if (jwHrefReg.test(location.href)) { // 教务初始化
             window.addEventListener('click', (e) => {
-                const keyword = ['查看', '审批', '认定']; // 点击这些按钮的将会出现【附件】
+                const keyword = ['查看', '审批', '认定', '详情']; // 点击这些按钮的将会出现【附件】
                 if (e.target.tagName === 'A' && keyword.includes(e.target.innerText)) {
                     setTimeout(() => {
                         addHandelClick();
