@@ -39,15 +39,15 @@ async function handelAjax() {
 
     // =======如有新增规则编辑此处即可=========
     const reg_filter = [' ', '｜', '—', '-', '→', '←', '▷', '◁', '『', '』']; // 在【内容】里可能会加的来源文字前后的字符 如'｜顾城《伞》'
-    const link_txt_filter = ['点击查看来源', '》》', '查看来源', '『独白』', '>>', '▷▷']; // 需要清除的来源名
+    const link_txt_filter = ['点击查看来源', '》》', '查看来源', '『独白』', '>>', '▷▷', '｜']; // 需要清除的来源名
     // ======================================
 
     const link_txt = data[i].link_ext.link_txt;
     // 过滤内容开头的作者名
-    const regStart = '^(' + reg_filter.join('|') + ')*(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') +
+    const regStart = '^(' + reg_filter.join('|') + ')*[^0-9a-zA-Z\u2E80-\u9FFF]*(点击查看来源|' + DangerStringFilter(link_txt) + ')[^0-9a-zA-Z\u2E80-\u9FFF]*(' + reg_filter.join('|') +
       ')*';
     // 过滤内容结尾的作者名
-    const regEnd = '\n?(' + reg_filter.join('|') + ')*(点击查看来源|' + link_txt + ')(' + reg_filter.join('|') +
+    const regEnd = '\n?(' + reg_filter.join('|') + ')*[^0-9a-zA-Z\u2E80-\u9FFF]*(点击查看来源|' + DangerStringFilter(link_txt) + ')[^0-9a-zA-Z\u2E80-\u9FFF]*(' + reg_filter.join('|') +
       ')*$';
     // 过滤如 '点击查看来源' 的作者名
     const reg = new RegExp('(' + regStart + '|' + regEnd + ')', 'g')
@@ -126,12 +126,17 @@ function changeShow(id) {
   }
 }
 
-function changeSchedule() {
+function changeSchedule () {
   timer = timer + keyframesTime >= showTimeDelay ? showTimeDelay : timer + keyframesTime;
   let newWidth = Math.floor(scheduleEl.width * timer / showTimeDelay);
   scheduleElVan.fillStyle = '#159957'; // 画笔颜色
   scheduleElVan.fillRect(0, 0, newWidth, 1);
 }
+
+function DangerStringFilter (s) {
+  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
 window.onresize = () => {
   if (!resizeTimer) {
     if (window.getComputedStyle) {
