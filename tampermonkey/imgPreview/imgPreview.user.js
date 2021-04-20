@@ -10,10 +10,7 @@
 // @match        http://xg.jxslsd.com:6931/
 // @grant        GM_addStyle
 // @grant        GM_xmlhttpRequest
-// @connect      self
-// @connect      jxslsd.com:9995
-// @connect      jxslsd.com:9990
-// @connect      *
+// @connect      jxslsd.com
 // @updateURL    https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.meta.js
 // @downloadURL  https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.user.js
 // @run-at       document-idle

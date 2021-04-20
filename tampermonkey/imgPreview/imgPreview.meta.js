@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         信息平台图片预览
-// @version      0.5
+// @version      0.5.1
 // @description  实现信息平台附件预览功能
 // @author       在同一时空相遇 y17870181601@163.com
 // @namespace    https://greasyfork.org/zh-CN/users/690564-%E5%9C%A8%E5%90%8C%E4%B8%80%E6%97%B6%E7%A9%BA%E7%9B%B8%E9%81%87
@@ -10,10 +10,11 @@
 // @match        http://xg.jxslsd.com:6931/
 // @grant        GM_addStyle
 // @grant        GM_xmlhttpRequest
-// @connect      http://*jxslsd.com*
+// @connect      jxslsd.com
 // @updateURL    https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.meta.js
 // @downloadURL  https://yuannancheng.github.io/tampermonkey/imgPreview/imgPreview.user.js
 // @run-at       document-idle
+// @note         V.0.5.1(2021-04-20) 修复跨域请求问题
 // @note         V.0.5(2021-01-10) 修复多附件时只能预览首个附件
 // @note         V.0.4(2021-01-05) 增加学工系统预览
 // ==/UserScript==
