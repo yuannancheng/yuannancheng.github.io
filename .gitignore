@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 *.cmd
 *.zip
 *.tokens
 .gitignore
+=======
+*.(cmd|zip|tokens)
+>>>>>>> dbe407d (Delete History)
